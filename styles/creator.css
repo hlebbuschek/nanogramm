@@ -1,0 +1,19 @@
+td {
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(107, 107, 107, 0.829);
+}
+.size {
+  display: flex;
+  flex-direction: column;
+}
+.box, .save {
+  display: flex;
+}
+.saved {
+  display: none;
+}
+.show-saved {
+  display: block;
+  color: green;
+}

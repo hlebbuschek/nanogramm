@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;;
+  font-size: larger;
+}
+button {
+  /* position: absolute; */
+  min-width: 60px;
+  min-height: 60px;
+  background-color: rgba(94, 178, 235, 0.8);
+  border: 3px solid rgb(189, 189, 189);
+  border-radius: 10px;
+  margin: 7px;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.8;
+  border-color: rgb(90, 90, 90);
+}
+button img {
+  padding-top: 3px;
+  max-width: 55px;
+  max-height: 60px;
+  object-fit: contain;
+  object-position: center;
+}
+img {
+  padding-top: 3px;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  object-position: center;
+}
+.red {
+  background-color: rgb(218, 116, 116);
+}
+.blue {
+  background-color: rgb(119, 119, 226);
+}
+.active {
+  border-color: black;
+}

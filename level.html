@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/level.css">
+    <title>Nonogramm! Play</title>
+  </head>
+  <body>
+    <div class="modal">
+      <div class="modal-content">
+        <p class="message"></p>
+        <div class="modal-buttons">
+          <button class="menu"><img src="img/menu.png" alt="menu"></button>
+          <button id="again"><img src="img/refresh.png" alt="again"></button>
+          <button id="next"><img src="img/next.png" alt="next"></button>
+        </div>
+      </div>
+    </div>
+    <main>
+      <button class="menu">
+        <img src="img/menu.png" alt="Menu">
+      </button>
+      <h1>Nonogramm</h1>
+      <section class="main-game-table">
+        <section class="game-table">
+        </section> 
+        <div class="choose-pen">
+          <button class="red">
+            <img src="img/cross.png" alt="X">
+          </button>
+          <button class="blue"></button>
+        </div>
+    </section>
+    <section class="lifes">
+      <img id="life-1" src="img/heart.png" alt="❤️">
+      <img id="life-2" src="img/heart.png" alt="❤️">
+      <img id="life-3" src="img/heart.png" alt="❤️">
+    </section>
+    </main>
+  </body>
+  <script type="module" src="script/level.js"></script>
+</html>

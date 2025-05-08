@@ -1,0 +1,41 @@
+main {
+  display: grid;
+  grid-template-columns: 100px auto;
+}
+.level {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+.levels, .level {
+  border: 3px solid rgb(189, 189, 189);
+  border-radius: 10px;
+}
+.levels {
+  display: grid;
+  grid-template-columns: 100px 100px 100px 100px;
+  /* gap: 15px; */
+  margin: 10px;
+  position: relative;
+  max-width: max-content;
+  min-height: 100px;
+}
+.level {
+  /* justify-self: center; */
+  width: 70px;
+  height: 65px;
+  margin: 15px;
+}
+.level:hover {
+  background-color: rgba(211, 211, 211, 0.671);
+}
+.levels-next-btn {
+  bottom: 15px;
+  right: 10px;
+  position: absolute;
+}
+.create-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
