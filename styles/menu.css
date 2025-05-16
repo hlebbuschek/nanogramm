@@ -13,7 +13,7 @@ main {
 }
 .levels {
   display: grid;
-  grid-template-columns: 100px 100px 100px 100px;
+  grid-template-columns: 30% 30% 30%;
   /* gap: 15px; */
   margin: 10px;
   position: relative;
@@ -22,9 +22,11 @@ main {
 }
 .level {
   /* justify-self: center; */
-  width: 70px;
-  height: 65px;
+  width: 100px;
+  height: 95px;
   margin: 15px;
+  font-size: 30px;
+  color: rgb(168, 130, 238);
 }
 .level:hover {
   background-color: rgba(211, 211, 211, 0.671);

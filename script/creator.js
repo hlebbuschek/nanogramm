@@ -1,5 +1,11 @@
-import { getHints, levels } from "../data/data.js";
+import { getHints } from "../data/data.js";
 import { showActiveColor } from "./level.js";
+import { findMatchingAccount } from "../data/accounts.js";
+
+const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username');
+const matchingUser = findMatchingAccount(username);
+
 class Size {
   constructor(rows, cols) {
     this.rows = rows;
@@ -106,12 +112,15 @@ document.querySelector('.save-riddle').addEventListener('click', () => {
     }
   }
   if (checkingRiddle(tableArray)) {
-    levels.push(tableArray);
-    localStorage.setItem('levels', JSON.stringify(levels));
-    document.querySelector('.saved').classList.add('show-saved');
+    //push level to matchingaccount.levels!!!
+    matchingUser.levels.push(tableArray);
+    // localStorage.setItem('levels', JSON.stringify(levels));
+    // document.querySelector('.saved').classList.add('show-saved');
+    document.querySelector('.save-riddle').innerHTML = 'Saved';
     clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        document.querySelector('.saved').classList.remove("show-saved");
+        document.querySelector('.save-riddle').innerHTML = 'Save';
+        // document.querySelector('.saved').classList.remove("show-saved");
       }, 2000);
   } else {
     alert(`Invalid riddle!`)
@@ -155,6 +164,6 @@ function checkArray(array) {
 document.querySelectorAll('.menu')
   .forEach((btn) => {
     btn.addEventListener('click', () => {
-      window.location.href = `index.html`;
+      window.location.href = `menu.html?username=${encodeURIComponent(username)}`;
     });
   });

@@ -1,11 +1,14 @@
 import {newLevels as levels} from "../data/data.js";
-
+import { findMatchingAccount } from "../data/accounts.js";
 const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username');
 const levelId = parseInt(urlParams.get('id'));
 let currentColor = 'blue';
 
+const matchingUser = findMatchingAccount(username);
+
 export function loadLevel(levelId) {
-  const level = levels.find(level => level.id === levelId);
+  const level = matchingUser.levels.find(level => level.id === levelId);
   if (level) {
     document.querySelector('.game-table').innerHTML = '';
     level.createGameTable();
@@ -19,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 document.querySelectorAll('.menu')
   .forEach((btn) => {
     btn.addEventListener('click', () => {
-      window.location.href = `index.html`;
+      window.location.href = `menu.html?username=${encodeURIComponent(username)}`;
     });
   });
 
@@ -74,16 +77,16 @@ function check(cell, color) {
   return false;
 }
 
-
+//timer setzen: 
 function activateModal(message) {
   document.querySelector('.message').innerText = message;
   document.querySelector('.modal').classList.add('active-modal');
   document.getElementById('again').addEventListener('click', () => {
-    window.location.href = `level.html?id=${levelId}`;
+    window.location.href = `level.html?username=${encodeURIComponent(username)}&id=${levelId}`;
   });
   
   document.getElementById('next').addEventListener('click', () => {
-    window.location.href = `level.html?id=${levelId + 1}`;
+    window.location.href = `level.html?username=${encodeURIComponent(username)}&id=${levelId + 1}`;
   
   });
 }

@@ -1,6 +1,17 @@
-export let levels = JSON.parse(localStorage.getItem('levels')) || [];
-
-export let newLevels = [];
+export function getHints(line) {
+  const hints = [];
+  let count = 0;
+  for (let val of line) {
+    if (val) {
+      count++;
+    } else if (count > 0) {
+      hints.push(count);
+      count = 0;
+    }
+  }
+  if (count > 0) hints.push(count);
+  return hints.length > 0 ? hints : [0];
+}
 
 class Level {
   constructor(id, table) {
@@ -23,20 +34,6 @@ class Level {
     }
     return colHints;
   }
-  // getHints(line) {
-  //   const hints = [];
-  //   let count = 0;
-  //   for (let val of line) {
-  //     if (val) {
-  //       count++;
-  //     } else if (count > 0) {
-  //       hints.push(count);
-  //       count = 0;
-  //     }
-  //   }
-  //   if (count > 0) hints.push(count);
-  //   return hints.length > 0 ? hints : [0];
-  // }
 
   createGameTable() {
     const table = document.createElement('table');
@@ -67,23 +64,27 @@ class Level {
     };
   }
 }
+const baselvls = [
+  {
+    id: 1,
+    table: [[true,false,true,false],[false,true,true,true],[false,true,false,false],[true,true,false,true]]},
+  {
+    id: 2,
+    table: [[false,false,true,false,true],[false,true,true,true,false],[true,true,true,true,true],[true,true,true,true,false],[false,true,true,false,false]]},
+  {
+    id: 3,
+    table: [[false,false,true,true,false,false],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,false,true,true,false,false]]},
+  {
+    id: 4,
+    table: [[false,true,false,false,false,true,false],[true,false,true,false,true,false,true],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[true,true,true,true,true,true,true],[false,true,false,false,false,true,false]]}];
 
-export function getHints(line) {
-  const hints = [];
-  let count = 0;
-  for (let val of line) {
-    if (val) {
-      count++;
-    } else if (count > 0) {
-      hints.push(count);
-      count = 0;
-    }
-  }
-  if (count > 0) hints.push(count);
-  return hints.length > 0 ? hints : [0];
-}
+export let levels = JSON.parse(localStorage.getItem('levels') || JSON.stringify(baselvls));
+// JSON.parse(localStorage.getItem('levels') || []; 
+// .map((level, index) => /*Object.assign(*/new Level(level, index)/*, level)*/);
 
-for (let counter = 0; counter < levels.length; counter++) {
-  const item = new Level(counter + 1, levels[counter]);
-  newLevels.push(item);
-}
+export let newLevels = levels.map(lvl => new Level(lvl.id, lvl.table));
+
+// for (let counter = 0; counter < levels.length; counter++) {
+//   const item = new Level(counter + 1, levels[counter]);
+//   newLevels.push(item);
+// }
