@@ -1,4 +1,3 @@
-// import {newLevels as levels} from "../data/data.js";
 import { accounts, findMatchingAccount } from "../data/accounts.js";
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
@@ -79,6 +78,7 @@ function draw() {
           checkAndFillRowCol(cell);
 
           if (CountRightCells === RightCells.length) {
+            document.querySelector('.modal-buttons').innerHTML += `<button id="next"><img src="img/next.png" alt="next"></button>`;
             activateModal('Well done!');
             currentUser.levels[levelId].isOpen = true;
             console.log(JSON.stringify(currentUser.levels[levelId]));
