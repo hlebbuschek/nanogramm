@@ -13,12 +13,17 @@ export function getHints(line) {
   return hints.length > 0 ? hints : [0];
 }
 
-class Level {
-  constructor(id, table) {
+export class Level {
+  constructor(id, table, isOpen = false) {
+    const raw = table?.solution || table?.table || table;
     this.id = id;
-    this.solution = table;
+    this.solution = raw;
+    if (!Array.isArray(this.solution)) {
+      throw new Error(`Invalid level data for level ${id}`);
+    }
     this.rowsHint = this.getRowHints();
     this.colsHint = this.getColHints();
+    this.isOpen = id === 1 ? true : isOpen;
   }
 
   getRowHints() {
@@ -46,7 +51,8 @@ class Level {
       headRow += `<th>${str}</th>`;
     }
     const Thead = table.createTHead();
-    Thead.innerHTML = headRow;
+    const headTr = Thead.insertRow();
+    headTr.innerHTML = headRow;
     const Tbody = table.createTBody(); 
     for (let rowsCounter = 0; rowsCounter < this.rowsHint.length; rowsCounter++) {
       const row = document.createElement('tr');
@@ -64,27 +70,47 @@ class Level {
     };
   }
 }
-const baselvls = [
+export const baselvls = [
   {
     id: 1,
     table: [[true,false,true,false],[false,true,true,true],[false,true,false,false],[true,true,false,true]]},
   {
     id: 2,
-    table: [[false,false,true,false,true],[false,true,true,true,false],[true,true,true,true,true],[true,true,true,true,false],[false,true,true,false,false]]},
+    table: [[false,true,false,true],[true,true,true,false],[false,true,true,true],[true,false,true,false]]},
   {
     id: 3,
-    table: [[false,false,true,true,false,false],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,false,true,true,false,false]]},
+    table: [[true,true,true,false],[false,true,true,true],[false,true,false,true],[true,true,true,true]]},
   {
     id: 4,
-    table: [[false,true,false,false,false,true,false],[true,false,true,false,true,false,true],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[true,true,true,true,true,true,true],[false,true,false,false,false,true,false]]}];
-
-export let levels = JSON.parse(localStorage.getItem('levels') || JSON.stringify(baselvls));
-// JSON.parse(localStorage.getItem('levels') || []; 
-// .map((level, index) => /*Object.assign(*/new Level(level, index)/*, level)*/);
-
-export let newLevels = levels.map(lvl => new Level(lvl.id, lvl.table));
-
-// for (let counter = 0; counter < levels.length; counter++) {
-//   const item = new Level(counter + 1, levels[counter]);
-//   newLevels.push(item);
-// }
+    table: [[false,false,true,false,true],[false,true,true,true,false],[true,true,true,true,true],[true,true,true,true,false],[false,true,true,false,false]]
+  },
+  {
+    id: 5,
+    table: [[false,true,true,false,false],[true,true,false,true,false],[false,true,true,true,false],[false,true,false,false,true],[true,true,true,true,true]]},
+  {
+    id: 6,
+    table: [[false,false,true,false,true],[false,true,true,true,false],[true,true,true,true,true],[true,true,true,true,false],[false,true,true,false,false]]},
+  {
+    id: 7,
+    table: [[false,false,true,true,false,false],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,false,true,true,false,false]]},
+  {
+    id: 8,
+    table: [[false,true,false,false,false,true,false],[true,false,true,false,true,false,true],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[true,true,true,true,true,true,true],[false,true,false,false,false,true,false]]
+  },
+  {
+    id: 9,
+    table: [[true,false,true,true,true,true],[false,true,false,true,false,false],[true,true,true,true,true,true],[false,true,false,true,false,true],[true,true,true,true,true,true],[false,true,false,true,false,true]]
+  },
+  {
+    id: 10,
+    table: [[false,false,true,true,false,false],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,false,true,true,false,false]]},
+  {
+    id: 11,
+    table: [[false,true,true,false,false,false,false,false],[false,true,true,false,false,false,false,true],[true,false,true,false,false,false,true,true],[false,true,true,false,false,false,true,false],[false,true,true,false,false,true,true,false],[false,true,true,true,true,true,true,false],[false,true,true,true,true,true,false,false],[false,true,false,true,false,true,false,false]]},
+  {
+    id: 12,
+    table: [[false,false,true,false,false,false,true],[false,true,true,true,true,true,false],[true,true,true,false,false,true,false],[false,true,false,true,false,true,false],[true,true,true,false,true,true,true],[false,true,true,true,true,true,false],[true,false,true,false,true,false,false]]},
+  {
+    id: 13,
+    table: [[false,true,false,false,false,true,false],[true,false,true,false,true,false,true],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[true,true,true,true,true,true,true],[false,true,false,false,false,true,false]]},
+];

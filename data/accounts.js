@@ -1,14 +1,25 @@
-import {newLevels as lvl} from "./data.js";
-// export let accounts = JSON.parse(localStorage.getItem('accounts')) || []; 
-const defaultAccounts = [{"userName":"admin","password":"mainAkk-001","pin":"1423","levels":[]},{"userName":"hleb","password":null,"pin":"1423","levels":[]},{"userName":"fox_in","password":"inI<3","pin":"1111","levels":[]},{"userName":"olimpia","password":"TOP1","pin":"1122","levels":[]},{"userName":"hlebbuschek","password":"TheM0$+Simple","pin":"0000","levels":[[[true,false,true,false],[false,true,true,true],[false,true,false,false],[true,true,false,true]],[[false,false,true,false,true],[false,true,true,true,false],[true,true,true,true,true],[true,true,true,true,false],[false,true,true,false,false]],[[false,false,true,true,false,false],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,true,true,true,true,false],[true,true,true,true,true,true],[false,false,true,true,false,false]],[[false,true,false,false,false,true,false],[true,false,true,false,true,false,true],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[false,true,true,true,true,true,false],[true,true,true,true,true,true,true],[false,true,false,false,false,true,false]]]}];
+import {baselvls} from "./data.js";
+import { Level } from "./data.js";
+const defaultAccounts = [
+  {"userName":"admin","password":"mainAkk-001","pin":"1423","levels":[]},
+  {"userName":"hleb","password":"pass4hleb","pin":"1234","levels":[]},
+  {"userName":"fox_in","password":"inI<3","pin":"1111","levels":[]},
+  {"userName":"olimpia","password":"TOP1","pin":"1122","levels":[]},
+  {"userName":"hlebbuschek","password":"TheM0$+Simple","pin":"0000","levels":[]},
+  {"userName":"florida","password":"itsaUSA","pin":"0407","levels":[]}
+];
 
 class Account {
-  constructor(username, password, pin, levels = lvl) {
+  constructor(username, password, pin, levels = []) {
     this.userName = username;
     this.password = password;
     this.pin = pin;
-    this.levels = levels;
+    this.levels = levels.length ? this.createLevels(levels) : this.createLevels(baselvls);
   }  
+  createLevels(oldLevels) {
+    return oldLevels.map((lvl, index) =>
+      new Level(lvl.id ?? index + 1, lvl.table ?? lvl.solution ?? lvl, lvl.isOpen ?? false));
+  }
   showForgotedPassword(pin) {
     if (pin === this.pin) {
       return this.password;
@@ -17,30 +28,29 @@ class Account {
     }
   }
 }
-
-export let accounts = JSON.parse(localStorage.getItem('accounts') || JSON.stringify(defaultAccounts))
-  .map(acc => Object.assign(new Account(), acc));
-
+export let accounts = (JSON.parse(localStorage.getItem('accounts')) || defaultAccounts)
+  .map(acc => new Account(acc.userName, acc.password, acc.pin, acc.levels));
+localStorage.setItem('accounts', JSON.stringify(accounts));
 export function createAccount(name, password, pin, lvl = []) {
-  let result = {};
-  // const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
   const exists = accounts.some(acc => acc.userName === name);
   if (exists) {
     alert("Username already exists!");
-  } else {
-    result = new Account(name, password, pin, lvl);
-    accounts.push(result);
-    localStorage.setItem('accounts', JSON.stringify(accounts));
-  }
+    return;
+  } 
+  const result = new Account(name, password, pin, lvl);
+  accounts.push(result);
+  localStorage.setItem('accounts', JSON.stringify(accounts.map(serializeAccount)));
+}
+
+function serializeAccount(account) {
+  return {
+    userName: account.userName,
+    password: account.password,
+    pin: account.pin,
+    levels: account.levels.map(lvl => lvl.solution ?? lvl) // robust für Level-Instanzen oder rohe
+  };
 }
 
 export function findMatchingAccount(username) {
-  const matchingItem = //accounts.some(acc => acc.userName === username);
-  accounts.find(acc => {
-    if (acc.userName === username) {
-      return true;
-    }
-  });
-  return matchingItem;
+  return accounts.find(acc => acc.userName === username);
 }
-

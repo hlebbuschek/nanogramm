@@ -10,11 +10,30 @@
     </div>
     <input class="username" type="text" placeholder="user name">
     <div class="valid-username"></div>
-    <input class="password" type="password" placeholder="password">
-    <input class="password-copy" type="password" placeholder="repeat the password">
+    <!-- <input class="password" type="password" placeholder="password">
+    <input class="password-copy" type="password" placeholder="repeat the password"> -->
+    <div class="password-div">
+      <input class="password" type="password" placeholder="password" id="1-input">
+      <button class="eye-btn" id="1">
+        <img src="img/eye-close.png">
+      </button>
+    </div>
+    <div class="password-div">
+      <input class="password-copy" type="password" placeholder="repeat the password" id="2-input">
+      <button class="eye-btn" id="2">
+        <img src="img/eye-close.png">
+      </button>
+    </div>
     <div class="false-password"></div>
-    <input class="pin" type="password" placeholder="PIN">
+    <!-- <input class="pin" type="password" placeholder="PIN"> -->
+     <div class="password-div show">
+      <input class="pin" type="password" placeholder="PIN" id="3-input">
+      <button class="eye-btn" id="3">
+        <img src="img/eye-close.png">
+      </button>
+    </div>
     <button class="create-button">Create</button>
     <script type="module" src="script/create-account.js"></script>
+    <script src='global/passwords.js'></script>
   </body>
 </html>

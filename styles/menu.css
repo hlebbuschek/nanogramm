@@ -4,8 +4,14 @@ main {
 }
 .level {
   display: flex;
-  /* align-items: center; */
   justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 95px;
+  margin: 15px;
+  font-size: 30px;
+  color: rgb(168, 130, 238);
+  padding: 6%;
 }
 .levels, .level {
   border: 3px solid rgb(189, 189, 189);
@@ -13,20 +19,15 @@ main {
 }
 .levels {
   display: grid;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: 1fr 1fr 1fr;
   /* gap: 15px; */
   margin: 10px;
-  position: relative;
-  max-width: max-content;
-  min-height: 100px;
-}
-.level {
-  /* justify-self: center; */
-  width: 100px;
-  height: 95px;
-  margin: 15px;
-  font-size: 30px;
-  color: rgb(168, 130, 238);
+  padding: 6%;
+  align-items: start;
+  justify-content: space-between;
+  /* position: relative; */
+  max-width: 1000px;
+  min-height: 500px;
 }
 .level:hover {
   background-color: rgba(211, 211, 211, 0.671);
@@ -40,4 +41,7 @@ main {
   position: absolute;
   top: 15px;
   left: 15px;
+}
+.column {
+  justify-items: center;
 }

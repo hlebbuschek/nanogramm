@@ -1,7 +1,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(147, 147, 251);
-  font-size: 40px;
+  font-size: 26px;
   display: flex;
   flex-direction: column;
   margin: 20% 25%;
@@ -30,6 +30,7 @@ button {
   background-color: rgb(147, 147, 251);
   color: rgb(255, 255, 255);
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 button:hover {
   box-shadow: none;
@@ -37,4 +38,50 @@ button:hover {
 a {
   color: rgb(185, 185, 255);
   font-size: 20px;
+}
+.password-div button {
+  position: absolute;
+  background-color: transparent;
+  width: 40px;
+  /* min-height: 50%; */
+  max-height: 40px;
+  z-index: 200;
+  right: 0;
+  border-radius: 80px;
+  box-shadow: none;
+  /*border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: inset -4px 1px 3px 2px red;
+  margin: 12px 0; */
+}
+
+.password-div input {
+  /* border-top-right-radius: 0;
+  border-bottom-right-radius: 0; */
+  margin: 12px 0;
+  
+}
+.password-div {
+  position: relative;
+  display: flex;
+  width: 100%;
+  /* margin: 0 12px; */
+}
+.eye-btn img {
+  object-fit: contain;
+  object-position: center;
+  max-width: 100%;
+}
+.medium-font {
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  justify-items: space-between;
+}
+.show-password-btn {
+  min-width: 65px;
+  max-width: 90px;
+}
+.show-password {
+  min-width: 120px;
 }

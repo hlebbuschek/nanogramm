@@ -1,4 +1,4 @@
-import { getHints } from "../data/data.js";
+import { getHints, Level } from "../data/data.js";
 import { showActiveColor } from "./level.js";
 import { findMatchingAccount } from "../data/accounts.js";
 
@@ -23,7 +23,7 @@ class Size {
     checkBox.classList.add('check-box');
     checkBox.id = this.id;
     const label = document.createElement('label');
-    label.for = this.string;
+    label.htmlFor = checkBox.id;
     document.querySelector(`.box-${this.rows}`).appendChild(checkBox);
     document.querySelector(`.box-${this.rows}`).innerHTML += `
     <label for="${checkBox.id}">${this.string}</label>`;
@@ -112,16 +112,23 @@ document.querySelector('.save-riddle').addEventListener('click', () => {
     }
   }
   if (checkingRiddle(tableArray)) {
-    //push level to matchingaccount.levels!!!
-    matchingUser.levels.push(tableArray);
-    // localStorage.setItem('levels', JSON.stringify(levels));
-    // document.querySelector('.saved').classList.add('show-saved');
+    const newRiddle = new Level(matchingUser.levels.length + 1, tableArray);
+    matchingUser.levels.push(newRiddle);
     document.querySelector('.save-riddle').innerHTML = 'Saved';
     clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         document.querySelector('.save-riddle').innerHTML = 'Save';
-        // document.querySelector('.saved').classList.remove("show-saved");
       }, 2000);
+      
+      const accounts = JSON.parse(localStorage.getItem('accounts'));
+      const updateAccounts = accounts.map(acc => {
+        if (acc.userName === matchingUser.userName) {
+          acc.levels = matchingUser.levels;
+        }
+        return acc;
+      });
+      localStorage.setItem('accounts', JSON.stringify(updateAccounts));
+
   } else {
     alert(`Invalid riddle!`)
   }
